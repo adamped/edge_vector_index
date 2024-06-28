@@ -5,3 +5,10 @@ edition = "2021"
 
 [dependencies]
 edge_vector_index = { path = "../lib" }
+
+[dev-dependencies]
+criterion = "0.5.1"
+
+[[bench]]
+name = "main"
+harness = false

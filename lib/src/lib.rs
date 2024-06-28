@@ -1,11 +1,4 @@
-#![feature(portable_simd)]
-#![feature(array_chunks)]
-#![feature(slice_as_chunks)]
-use std::simd::f32x4;
-use std::simd::num::*;
-use std::simd::*;
-
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Index {
     pub vectors: Vec<f32>,
     pub metadata: String,
@@ -17,6 +10,7 @@ impl Index {
     }
 }
 
+#[derive(Clone)]
 pub struct EdgeVectorIndex {
     index: Vec<Index>,
 }
@@ -31,10 +25,6 @@ impl EdgeVectorIndex {
     }
 
     pub fn find_closest_match(&self, vector: &[f32]) -> Option<&Index> {
-        
-        // Vectors must be divisible by 4 for SIMD
-        assert_eq!(vector.len() % 4, 0);
-        
         let mut cosine: f32 = 0.0;
         let mut index_ref: Option<&Index> = None;
 
@@ -51,7 +41,6 @@ impl EdgeVectorIndex {
     }
 
     fn cosine_similarity(&self, vector1: &[f32], vector2: &[f32]) -> f32 {
-
         assert_eq!(vector1.len(), vector2.len());
 
         let dot_product_value = Self::dot_product(vector1, vector2);
@@ -63,13 +52,7 @@ impl EdgeVectorIndex {
         return dot_product_value / denominator;
     }
 
-    pub fn dot_product(a: &[f32], b: &[f32]) -> f32 {
-              
-        // Chunk the arrays to SIMD vector size
-        a.array_chunks()
-            .map(|&a| f32x4::from_array(a))
-            .zip(b.array_chunks().map(|&b| f32x4::from_array(b)))
-            .fold(f32x4::splat(0.0), |acc, (a, b)| a.mul_add(b, acc))
-            .reduce_sum()
-      }
+    fn dot_product(a: &[f32], b: &[f32]) -> f32 {
+        a.iter().zip(b.iter()).map(|(x, y)| x * y).sum()
+    }
 }
