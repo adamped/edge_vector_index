@@ -18,7 +18,7 @@ fn build_index() -> EdgeVectorIndex {
         indexes.push(build_comparison());
     }
 
-    index.init(indexes);
+    index.add_to_index(indexes);
 
     return index;
 }
@@ -29,7 +29,7 @@ fn build_comparison() -> Index {
         numbers.push(0.1);
     }
 
-    return Index::new(numbers, String::from("Empty"));
+    return Index::new(numbers, String::from("0"));
 }
 
 fn edge_vector_index(index: EdgeVectorIndex, compare: Vec<f32>) {

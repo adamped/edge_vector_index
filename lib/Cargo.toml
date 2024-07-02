@@ -2,3 +2,15 @@
 name = "edge_vector_index"
 version = "0.1.0"
 edition = "2021"
+
+[lib]
+name = "edge_vector_index"
+crate-type = ["lib", "cdylib"]
+
+[dependencies]
+interoptopus = "0.14.26"
+
+[dev-dependencies]
+interoptopus_backend_csharp = "0.14.25"
+interoptopus_backend_c = "0.14.25"
+interoptopus_backend_cpython = "0.14.25"
