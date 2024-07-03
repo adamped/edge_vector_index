@@ -24,3 +24,18 @@ fn bindings_csharp() -> Result<(), Error> {
 
     Ok(())
 }
+
+#[test]
+fn bindings_c() -> Result<(), Error> {
+    use interoptopus_backend_c::{Config, Generator};
+
+    Generator::new(
+        Config {
+            ifndef: "edge_vector_index".to_string(),
+            ..Config::default()
+        },
+        edge_vector_index::interop::create_inventory(),
+    ).write_file("bindings/interop.h")?;
+
+    Ok(())
+}

@@ -3,3 +3,5 @@
 **/obj
 **/bin/
 **/BenchmarkDotNet.Artifacts/
+!dart/main/bin
+dart/main/assets/libedge_vector_index.so

@@ -49,7 +49,7 @@ pub extern "C" fn find_closest_match(
         return 0;
     }
 
-    // TODO: Move to string for metadata
+    // TODO: Change to string
     index.unwrap().metadata.parse().unwrap()
 }
 

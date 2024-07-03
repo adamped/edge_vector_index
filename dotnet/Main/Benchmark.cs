@@ -27,12 +27,14 @@ public class Benchmark
         return _builtIndexLocal.FindClosestMatch(_comparisonVectors);
     }
 
+    const int indexLength = 1000;
+
     static Store BuildIndex()
     {
         var index = new Store();
         var indexes = new List<Index>();
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < indexLength; i++)
         {
             indexes.Add(BuildComparison());
         }
@@ -49,7 +51,7 @@ public class Benchmark
       var index = new EdgeVectorIndexLocal();
         var indexes = new List<Index>();
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < indexLength; i++)
         {
             indexes.Add(BuildComparison());
         }
