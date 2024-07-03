@@ -12,5 +12,16 @@ Local is a C# implementation using very similar code. Interop is using the Rust 
 | FindClosestMatch_Benchmark_Local   | 4,331.7 us | 12.97 us | 12.13 us |
 
 
+Dart produces similar benchmarks
+
+Non AOT
+Benchmark_Interop(RunTime): 598.3645 us.
+Benchmark_Local(RunTime): 5733.497252747253 us.
+
+AOT Times
+Benchmark_Interop(RunTime): 589.77 us.
+Benchmark_Local(RunTime): 4741.712359550562 us.
+
+
 [WARNING] : 
 - This library is still under development.
