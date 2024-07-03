@@ -2,3 +2,4 @@
 *.lock
 **/obj
 **/bin/
+**/BenchmarkDotNet.Artifacts/

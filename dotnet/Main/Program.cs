@@ -1,4 +1,8 @@
-﻿using EdgeVectorIndex;
+﻿using BenchmarkDotNet.Running;
+using Benchmarks;
+using EdgeVectorIndex;
+
+BenchmarkRunner.Run<Benchmark>();
 
 var store = new Store();
 
