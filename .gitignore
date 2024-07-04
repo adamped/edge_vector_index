@@ -4,4 +4,5 @@
 **/bin/
 **/BenchmarkDotNet.Artifacts/
 !dart/main/bin
-dart/main/assets/libedge_vector_index.so
+libedge_vector_index.so
+**/__pycache__

@@ -39,3 +39,15 @@ fn bindings_c() -> Result<(), Error> {
 
     Ok(())
 }
+
+#[test]
+fn bindings_cpython_cffi() -> Result<(), Error> {
+    use interoptopus_backend_cpython::{Config, Generator};
+
+    let library = edge_vector_index::interop::create_inventory();
+
+    Generator::new(Config::default(), library)
+        .write_file("../python/edge-vector-index/interop.py")?;
+
+    Ok(())
+}
