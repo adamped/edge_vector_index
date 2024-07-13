@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edge Vector Index</title>
+    <!-- Add the exported edge_vector_index files to this directory -->
+
+
+    <script type="module">
+        import init, { WasmEdgeVectorIndex } from "./pkg/edge_vector_index.js";
+
+        await init();
+
+        const myInstance = new WasmEdgeVectorIndex();
+
+        myInstance.add_to_index([0.3, 0.2, 0.1], "1");
+        myInstance.add_to_index([0.6, 0.6, 0.6], "2");
+
+        const closestMatch = myInstance.find_closest_match([0.6, 0.6, 0.6]);
+        document.getElementById("result").textContent = `Closest match: ${closestMatch}`;
+
+    </script>
+
+</head>
+
+<body>
+    <p id="result"></p>
+</body>
+
+</html>

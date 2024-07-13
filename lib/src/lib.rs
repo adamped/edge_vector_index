@@ -1,4 +1,5 @@
 pub mod interop;
+pub mod interop_wasm;
 
 #[derive(Clone)]
 pub struct Index {
@@ -24,6 +25,7 @@ impl Default for EdgeVectorIndex{
 }
 
 impl EdgeVectorIndex {
+
     pub fn new() -> Self {
         EdgeVectorIndex { index: Vec::new() }
     }

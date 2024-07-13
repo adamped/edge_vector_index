@@ -9,6 +9,7 @@ crate-type = ["lib", "cdylib"]
 
 [dependencies]
 interoptopus = "0.14.26"
+wasm-bindgen = "0.2"
 
 [dev-dependencies]
 interoptopus_backend_csharp = "0.14.25"
