@@ -5,7 +5,7 @@
     <title>Edge Vector Index</title>
     <!-- Add the exported edge_vector_index files to this directory -->
 
-
+    <script src="edge_vector_store_local.js"></script>
     <script type="module">
         import init, { WasmEdgeVectorIndex } from "./pkg/edge_vector_index.js";
 
@@ -19,12 +19,101 @@
         const closestMatch = myInstance.find_closest_match([0.6, 0.6, 0.6]);
         document.getElementById("result").textContent = `Closest match: ${closestMatch}`;
 
+
+        function benchmark(codeToRun, iterations) {
+            let totalTime = 0;
+            for (let i = 0; i < iterations; i++) {
+                const start = performance.now();
+                codeToRun();
+                const end = performance.now();
+                totalTime += end - start;
+            }
+            return totalTime / iterations;
+        }
+
+        const indexLength = 1000;
+
+        function BuildIndex() {
+            const index = new WasmEdgeVectorIndex();
+            const indexes = [];
+
+            for (let i = 0; i < indexLength; i++) {
+                indexes.push(BuildComparison());
+            }
+
+            var count = 0;
+            for (const idx of indexes) {
+                index.add_to_index(idx, count.toString());
+                count++;
+            }
+
+            return index;
+        }
+
+        function BuildComparison() {
+            const numbers = [];
+            for (let i = 0; i < 384; i++) {
+                numbers.push(0.1);
+            }
+
+            return numbers;
+        }
+
+        var index = BuildIndex();
+        var comparison = BuildComparison();
+
+        const benchmark_interop = () => {
+            const closestMatch = index.find_closest_match(comparison);
+        };
+
+        const iterations = 10; // Number of times to run the benchmark code
+        document.getElementById("interop_benchmark").textContent = benchmark(benchmark_interop, iterations) * 1000;
+
+
+        function BuildLocalIndex() {
+            const index = new EdgeVectorIndexLocal();
+            const indexes = [];
+
+            for (let i = 0; i < indexLength; i++) {
+                indexes.push(new Index(BuildComparison(), "0"));
+            }
+
+            for (const idx of indexes) {
+                index.addToIndex(idx);
+            }
+
+            return index;
+        }
+
+        var localIndex = new BuildLocalIndex();
+
+        const benchmark_local = () => {
+            const closestMatch = localIndex.findClosestMatch(comparison);
+        };
+
+        document.getElementById("local_benchmark").textContent = benchmark(benchmark_local, iterations) * 1000;
+
     </script>
 
 </head>
 
 <body>
     <p id="result"></p>
+    <h2>Benchmarks</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Time (us)</th>
+        </tr>
+        <tr>
+            <td>Interop</td>
+            <td id="interop_benchmark"></td>
+        </tr>
+        <tr>
+            <td>Local</td>
+            <td id="local_benchmark"></td>
+        </tr>
+    </table>
 </body>
 
 </html>

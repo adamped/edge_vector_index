@@ -41,3 +41,22 @@ Python had the worst runtime for local but similar for interop
 |--------------------------- |-----------:|---------:|
 | Find Closest Match Interop |     612 us |    12 us |
 | Find Closest Match Local   |    26.9 ms |   0.7 us |
+
+
+### JS vs WASM
+
+This is for 10 iterations.
+
+| Method                            | Mean       |
+|---------------------------------- |-----------:|
+| Find Closest Match Interop (WASM) |     700 us |
+| Find Closest Match Local (JS)     |   12400 us |
+
+
+This is for 1000 iterations. The speed of JS improves a lot due to caching of the code. This was run in a chromium engine.
+
+| Method                            | Mean       |
+|---------------------------------- |-----------:|
+| Find Closest Match Interop (WASM) |     619 us |
+| Find Closest Match Local (JS)     |    2342 us |
+

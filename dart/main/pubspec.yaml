@@ -9,6 +9,7 @@ environment:
 dependencies:
   benchmark_harness: ^2.2.2
   ffigen: ^12.0.0
+  ffi: 
 
 dev_dependencies:
   lints: ^4.0.0
