@@ -4,7 +4,7 @@ use interoptopus::{
     ffi_function, ffi_type, function, patterns::slice::FFISlice, Inventory, InventoryBuilder,
 };
 
-use crate::{EdgeVectorIndex, Index};
+use crate::{similarity, EdgeVectorIndex, Index};
 
 #[ffi_type()]
 #[repr(C)]
@@ -34,6 +34,12 @@ pub extern "C" fn free_resources(handle: EdgeVectorIndexHandle) {
     unsafe {
         let _ = &mut *(Box::from_raw(handle.instance));
     };
+}
+
+#[ffi_function]
+#[no_mangle]
+pub extern "C" fn cosine_similarity(input: FFISlice<'_, f32>, output: FFISlice<'_, f32>) -> f32 {
+    similarity::cosine_similarity(slice_to_array(input), slice_to_array(output))
 }
 
 #[ffi_function]
@@ -84,5 +90,6 @@ pub fn create_inventory() -> Inventory {
         .register(function!(add_to_index))
         .register(function!(find_closest_match))
         .register(function!(free_resources))
+        .register(function!(cosine_similarity))
         .inventory()
 }

@@ -39,6 +39,8 @@ int32_t find_closest_match(edgevectorindexhandle handle, slicef32 vector);
 
 void free_resources(edgevectorindexhandle handle);
 
+float cosine_similarity(slicef32 input, slicef32 output);
+
 
 #ifdef __cplusplus
 }

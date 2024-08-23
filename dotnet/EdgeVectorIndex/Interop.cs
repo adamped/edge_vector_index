@@ -31,6 +31,9 @@ namespace EdgeVectorIndex
         [DllImport(NativeLib, CallingConvention = CallingConvention.Cdecl, EntryPoint = "free_resources")]
         public static extern void free_resources(IntPtr handle);
 
+        [DllImport(NativeLib, CallingConvention = CallingConvention.Cdecl, EntryPoint = "cosine_similarity")]
+        public static extern float cosine_similarity(Slicef32 input, Slicef32 output);
+
     }
 
     [Serializable]

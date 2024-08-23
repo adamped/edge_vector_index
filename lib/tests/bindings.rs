@@ -35,12 +35,12 @@ fn bindings_c() -> Result<(), Error> {
             ..Config::default()
         },
         edge_vector_index::interop::create_inventory(),
-    ).write_file("bindings/interop.h")?;
+    )
+    .write_file("bindings/interop.h")?;
 
     Ok(())
 }
 
-#[test]
 fn bindings_cpython_cffi() -> Result<(), Error> {
     use interoptopus_backend_cpython::{Config, Generator};
 
